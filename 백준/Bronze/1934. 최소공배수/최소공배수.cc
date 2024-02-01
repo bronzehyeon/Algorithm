@@ -2,6 +2,13 @@
 #include <map>
 using namespace std;
 
+int euclid(int a, int b) {
+    if (b != 0)
+        return euclid(b, a % b);
+    else
+        return a;
+
+}
 
 int main() {
     ios_base::sync_with_stdio(false);
@@ -13,52 +20,14 @@ int main() {
     for (int i = 0; i < T; i++){
         int A, B;
         cin >> A >> B;
-        if (A % B == 0) {
-            cout << A << '\n';
-        }
-        else if (B % A == 0) {
-            cout << B << '\n';
-        }
-        else {
-            map<int, int> factor;
-            for (int i = 2; i <= A && A != 1;) {                
-                if (A % i == 0) {
-                    int count = 0;
-                    while (A % i == 0) {
-                        A /= i;
-                        count++;
-                    }
-                    factor.insert({ i, count });
-                }
-                else
-                    i++;
-            }
-            for (int i = 2; i <= B && B != 1;) {                
-                if (B % i == 0) {
-                    int count = 0;
-                    while (B % i == 0) {
-                        B /= i;
-                        count++;
-                    }
-                    if (factor.find(i) != factor.end()) {
-                        if (factor.find(i)->second < count)
-                            factor[i] = count;
-                    }
-                    else {
-                        factor.insert({ i, count });
-                    }  
-                }
-                else
-                    i++;
-            }
-            int answer = 1;
-            for (map<int, int>::iterator iter = factor.begin(); iter != factor.end(); iter++) {
-                for (int i = 0; i < iter->second; i++) {
-                    answer = answer * iter->first;
-                }
-            }
-            cout << answer << '\n';
-        }
+        int gcd;
+        if (A > B)
+            gcd = euclid(A, B);
+        else
+            gcd = euclid(B, A);
+
+        cout << A * B / gcd << '\n';
+
     }
     return 0;
 }
