@@ -1,5 +1,4 @@
 #include <iostream>
-#include <map>
 using namespace std;
 
 int euclid(int a, int b) {
