@@ -1,8 +1,6 @@
 #include <iostream>
 using namespace std;
 
-int dataStructure[100000];
-
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
