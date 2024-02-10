@@ -1,7 +1,6 @@
 #include <iostream>
 #include <map>
 #include <set>
-#include <vector>
 using namespace std;
 
 int main() {
@@ -39,16 +38,6 @@ int main() {
     }
 
     map<int, int>::iterator iter = m.begin();
-    /*
-    while (iter != m.end()) {
-        cout << iter->first << " : " << iter->second << '\n';
-        iter++;
-    }
-    vector<int>::iterator vit = modeset.begin();
-    while (vit != modeset.end()) {
-        cout << *vit << endl;
-        vit++;
-    }*/
     int min = iter->first;
 
     int i = N / 2;
@@ -66,7 +55,6 @@ int main() {
     if (modeset.size() > 1)
         ms++;
 
-    //cout << "정답" << '\n';
     if (sum >= 0) {
         if (sum % N > N / 2)
             cout << sum / N + 1 << '\n';
