@@ -25,9 +25,7 @@ int main() {
     int answer = 0;
 
     for (int i = 0; i < N; i++) {
-        for (int j = 0; j <= i; j++) {
-            answer += v[j];
-        }
+        answer += (N - i) * v[i];
     }
 
     cout << answer;
