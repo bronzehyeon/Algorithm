@@ -27,7 +27,7 @@ int main() {
     cin.tie(NULL);
     cout.tie(NULL);
 
-    long long int N;
+    long long N;
     cin >> N;
 
     
