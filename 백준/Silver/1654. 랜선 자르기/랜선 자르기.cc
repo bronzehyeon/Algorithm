@@ -12,8 +12,6 @@ void solve(long s, long e) {
         return;
     long sum = 0;
     long cut = (s + e) / 2;
-    if (cut == 0)
-        cut = 1;
     for (int i = 0; i < K; i++) {
         sum += v[i] / cut;
     }
@@ -45,7 +43,7 @@ int main() {
             maxLen = tmp;
     }
 
-    solve(0, maxLen);
+    solve(1, maxLen);
 
     cout << answer;
 
