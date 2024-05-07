@@ -7,25 +7,26 @@ using namespace std;
 vector<pair<int, int>> graph[1001];
 bool visit[1001];
 
-int answer = 0;
-
-void dfs(int src, int dest, int distance) {
-
-    if(src == dest) {
-        answer = distance;
-        return;
+int dfs(int src, int dest) {
+    if (src == dest) {
+        return 0;
     }
 
-    for(int i = 0; i < graph[src].size(); i++) {
-        int n_node = graph[src][i].first;
-        int n_dist = graph[src][i].second;
+    visit[src] = true;
+    for (int i = 0; i < graph[src].size(); i++) {
+        int next = graph[src][i].first;
+        int dist = graph[src][i].second;
 
-        if(visit[n_node] == false) {
-            visit[n_node] = true;
-            dfs(n_node, dest, (distance + n_dist));
-            visit[n_node] = false;
+        if (!visit[next]) {
+            int result = dfs(next, dest);
+            if (result != -1) {
+                visit[src] = false;
+                return dist + result;
+            }
         }
     }
+    visit[src] = false;
+    return -1;
 }
 
 int main() {
@@ -48,20 +49,15 @@ int main() {
         visit[i] = false;
     }
 
+
     for (int i = 0; i < M; i++) {
         int src, dest;
         cin >> src >> dest;
 
-        visit[src] = true;
-        dfs(src, dest, 0);
-        visit[src] = false;
+        int answer = dfs(src, dest);
 
         cout << answer << '\n';
-
     }
-    
 
     return 0;
-
 }
-
