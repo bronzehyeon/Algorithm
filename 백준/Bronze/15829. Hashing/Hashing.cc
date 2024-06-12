@@ -17,8 +17,15 @@ int main() {
 	long long sum = 0;
 
 	for (int i = 0; i < L; i++) {
-		sum += pow(31, i) * (s[i] - 'a' + 1);
+		long long k = 1;
+		for (int j = 0; j < i; j++) {
+			k *= 31;
+			k %= 1234567891;
+		}
+		long long p = k % 1234567891;
+		sum += p * (s[i] - 'a' + 1);
+		sum %= 1234567891;
 	}
 	
-	cout << sum % 1234567891 << '\n';
+	cout << sum << '\n';
 }
