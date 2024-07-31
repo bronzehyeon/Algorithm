@@ -10,7 +10,6 @@ struct Pos
 };
 int N, M;
 int MIN = 10000;
-bool selected[13];
 vector<Pos> house_pos;
 vector<Pos> chicken_pos;
 vector<Pos> picked;
@@ -42,13 +41,8 @@ void Find_M_Combination(int x, int m)
     }
 
     for (int i = x; i < chicken_pos.size(); i++) {
-        if (selected[i] == true)
-            continue;
-
-        selected[i] = true;
         picked.push_back({ chicken_pos[i].x, chicken_pos[i].y });
-        Find_M_Combination(i, m + 1);
-        selected[i] = false;
+        Find_M_Combination(i + 1, m + 1);
         picked.pop_back();
     }
 }
