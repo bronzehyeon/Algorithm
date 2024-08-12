@@ -1,6 +1,7 @@
 #include <iostream>
 #include <queue>
 #include <cstring>
+#include <vector>
 using namespace std;
 
 
@@ -10,6 +11,8 @@ bool visited[100][100];
 bool visitedC[100][100];
 
 int dxy[2][4] = { {1, -1, 0, 0}, {0, 0, 1, -1} };
+
+vector<pair<int, int>> v;
 
 void air(int x, int y) {
 	queue<pair<int, int>> q;
@@ -76,17 +79,27 @@ bool melt(int x, int y) {
 }
 
 void hour() {
+	/*
 	memset(visited, false, sizeof(visited));
 	air(0, 0);
 	air(0, M - 1);
 	air(N - 1, 0);
 	air(N - 1, M - 1);
+	*/
+	for (int i = 0; i < v.size(); i++) {
+		if (!visited[v[i].first][v[i].second]) {
+			air(v[i].first, v[i].second);
+		}
+	}
+	
+	v.clear();
 
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < M; j++) {
 			if (arr[i][j] == 1) {
 				if (melt(i, j)) {
 					arr[i][j] = 0;
+					v.push_back({ i, j });
 				}
 			}
 		}
@@ -106,6 +119,11 @@ int main() {
 	}
 
 	int ans = 0;
+
+	v.push_back({ 0, 0 });
+	v.push_back({ 0, M - 1 });
+	v.push_back({ N - 1, 0 });
+	v.push_back({ N - 1, M - 1 });
 
 	while (!isEnd()) {
 		hour();
