@@ -34,7 +34,7 @@ int main() {
 		priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
 		pq.push({0,s});
 
-        vector<int> ds(n + 1, 1000000000);
+        vector<int> ds(n + 1, -1);
 
 		ds[s] = 0;
 		
@@ -85,7 +85,7 @@ int main() {
 			}
 		}
 
-		vector<int> dh(n + 1, 1000000000);
+		vector<int> dh(n + 1, -1);
 
 		pq.push({0,h});
 		dh[h] = 0;
