@@ -31,7 +31,7 @@ int main() {
 
 
     for (int i = 0; i < M; i++) {
-        answer += rest[i] * (rest[i] - 1) / 2;
+        answer += rest[i] * (rest[i] - 1) / 2;//nC2
     }
 
 
