@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 int main() {
@@ -7,8 +8,6 @@ int main() {
     cout.tie(NULL);
 
     int arr[1000];
-    int maxLen = 1;
-    int check[1000];
 
 
     int N;
@@ -18,20 +17,17 @@ int main() {
         cin >> arr[i];
     }
 
-    check[N - 1] = 1;
-
-    for (int i = N - 2; i >= 0; i--) {
-        int max = 0;
-        for (int k = i + 1; k < N; k++) {
-            if (arr[k] > arr[i])
-                if (max < check[k])
-                    max = check[k];
+    vector<int> dp(N, 0);
+    dp[0] = 1;
+    int ans = 1;
+    for(int i = 1; i < N; i++){
+        dp[i] = 1;
+        for(int j = i - 1; j >= 0; j--){
+            if(arr[j] < arr[i]){
+                dp[i] = max(dp[i], dp[j] + 1);
+            }
         }
-        check[i] = max + 1;
-        if (check[i] > maxLen)
-            maxLen = check[i];
+        ans = max(ans,dp[i]);
     }
-
-    cout << maxLen;
-
+    cout<<ans;
 }
