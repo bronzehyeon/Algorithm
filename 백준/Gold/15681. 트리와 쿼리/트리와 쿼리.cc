@@ -1,86 +1,50 @@
-#include <iostream>
+#include <string>
 #include <vector>
-#include <queue>
+#include <algorithm>
+#include <iostream>
 using namespace std;
 
-int N, R, Q;
-vector<int> graph[100001];
-int parent[100001];
-int ans[100001];
-int depth[100001];
-
-void bfs(int x) {
-	queue<pair<pair<int, int>, int>> q;
-
-	q.push({ { x , -1 }, 0 });
-
-	while (!q.empty()) {
-		int cur = q.front().first.first;
-		int prev = q.front().first.second;
-		int cnt = q.front().second;
-		q.pop();
-
-		depth[cur] = cnt;
-
-		for(int i = 0; i < graph[cur].size(); i++){
-			int next = graph[cur][i];
-			if (next != prev) {
-				parent[next] = cur;
-				q.push({{ next, cur }, cnt + 1});
-			}
+vector<int> ans;
+vector<bool> visited;
+int dfs(int cur, vector<vector<int>>& v){
+	int cnt = 1;
+	for(int i = 0; i < v[cur].size(); i++){
+		int next = v[cur][i];
+		if(!visited[next]){
+			visited[next] = true;
+			cnt += dfs(next, v);
 		}
 	}
-}
-
-
-void sol() {
-	priority_queue < pair<int, int>> q;
-
-	for (int i = 1; i <= N; i++) {
-		ans[i] = 1;
-		q.push({ depth[i], i });
-	}
-
-	while (!q.empty()) {
-		int cur = q.top().second;
-		int par = parent[cur];
-		q.pop();
-		//cout << cur << " " << ans[cur] << '\n';
-
-		ans[par] += ans[cur];
-	}
+	ans[cur] = cnt;
+	return cnt;
 }
 
 int main() {
 	ios::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
+    
+	int N, R, Q;
 
 	cin >> N >> R >> Q;
-	
-	for (int i = 0; i < N - 1; i++) {
-		int x, y;
-		cin >> x >> y;
 
-		graph[x].push_back(y);
-		graph[y].push_back(x);
+	ans.resize(N+1);
+	visited.resize(N+1);
+	vector<vector<int>> v(N + 1);
+
+	for(int i = 0; i < N - 1; i++){
+		int a, b;
+		cin>>a>>b;
+
+		v[a].push_back(b);
+		v[b].push_back(a);
 	}
+	visited[R] = true;
+	dfs(R, v);
 
-	bfs(R);
-	//cout << "bfs" << '\n';
-	sol();
-
-	/*for (int i = 1; i <= N; i++) {
-		cout << i << " : " << ans[i] << '\n';
-	}*/
-
-	while (Q--) {
-		int q;
-		cin >> q;
-
-		cout << ans[q] << '\n';
+	for(int i = 0; i < Q; i++){
+		int U;
+		cin>>U;
+		cout<<ans[U]<<'\n';
 	}
-	
-	
 }
-
